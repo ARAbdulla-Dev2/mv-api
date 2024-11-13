@@ -8,11 +8,16 @@ const PORT = 80;
 // Load user data from the data.json file
 const loadUserData = () => {
     const data = fs.readFileSync('./data/data.json', 'utf8');
-    return JSON.parse(data); // Correct parsing of the JSON file
+    const parsedData = JSON.parse(data);
+    return parsedData;
 };
 
 // Save user data back to data.json after modification
 const saveUserData = (users) => {
+    if (!Array.isArray(users)) {
+        console.error("Expected 'users' to be an array, but got", users);
+        return;
+    }
     fs.writeFileSync('./data/data.json', JSON.stringify({ users }, null, 2));
 };
 
@@ -24,8 +29,13 @@ server.get('/api', async (req, res) => {
     // Load user data from the file
     const users = loadUserData();
 
+    // Check if `users` is an array before proceeding
+    if (!Array.isArray(users.users)) {
+        return res.status(500).json({ success: false, message: 'Data structure error' });
+    }
+
     // Find the user with the provided apiKey
-    const user = users.users.find(user => user.apikey === apiKey); // Ensure `users.users` is an array
+    const user = users.users.find(user => user.apikey === apiKey);
 
     if (!user) {
         return res.status(403).json({ success: false, message: 'Not Authenticated' });
