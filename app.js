@@ -1,12 +1,14 @@
 const express = require('express');
 const fs = require('fs');
+const axios = require('axios');
+
 const server = express();
 const PORT = 80;
 
 // Load user data from the data.json file
 const loadUserData = () => {
     const data = fs.readFileSync('./data/data.json', 'utf8');
-    return JSON.parse(data); // Ensure it's parsing the data as JSON
+    return JSON.parse(data); // Correct parsing of the JSON file
 };
 
 // Save user data back to data.json after modification
@@ -21,15 +23,10 @@ server.get('/api', async (req, res) => {
 
     // Load user data from the file
     const users = loadUserData();
-    
-    // Debugging output
-    console.log(users); // Check if it's the correct structure
-    console.log(users.users); // Check if users.users is an array
 
     // Find the user with the provided apiKey
-    const user = users.users ? users.users.find(user => user.apikey === apiKey) : null;
+    const user = users.users.find(user => user.apikey === apiKey); // Ensure `users.users` is an array
 
-    // If no user is found, respond with an authentication error
     if (!user) {
         return res.status(403).json({ success: false, message: 'Not Authenticated' });
     }
