@@ -1,15 +1,12 @@
 const express = require('express');
-const axios = require('axios');
 const fs = require('fs');
-const cheerio = require('cheerio');
-
 const server = express();
 const PORT = 80;
 
 // Load user data from the data.json file
 const loadUserData = () => {
-    const data = fs.readFileSync('./data/data.json');
-    return JSON.parse(data);
+    const data = fs.readFileSync('./data/data.json', 'utf8');
+    return JSON.parse(data); // Ensure it's parsing the data as JSON
 };
 
 // Save user data back to data.json after modification
@@ -24,9 +21,13 @@ server.get('/api', async (req, res) => {
 
     // Load user data from the file
     const users = loadUserData();
+    
+    // Debugging output
+    console.log(users); // Check if it's the correct structure
+    console.log(users.users); // Check if users.users is an array
 
     // Find the user with the provided apiKey
-    const user = users.users.find(user => user.apikey === apiKey);
+    const user = users.users ? users.users.find(user => user.apikey === apiKey) : null;
 
     // If no user is found, respond with an authentication error
     if (!user) {
