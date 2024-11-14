@@ -11,6 +11,12 @@
       "name": "FREE",
       "apikey": "arabdullah_xody6cn",
       "limit": 50
+    },
+    {
+      "id": "3",
+      "name": "Sid Ethix Owner",
+      "apikey": "sid_5y5qaq",
+      "limit": "unlimited"
     }
   ]
 }
