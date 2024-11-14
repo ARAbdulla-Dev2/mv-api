@@ -70,6 +70,9 @@ server.get('/api', async (req, res) => {
 	} else if (mv === 'true' && mvScrape === 'vegamv') {
 		const vegamv = require('./modules/vegamv');
 		vegamv.getMovies(searchQuery, res, results);
+	} else if (mv === 'true' && mvScrape === 'armvapi') {
+		const armvapi = require('./modules/armvapi');
+		armvapi.getMovies(searchQuery, res, results);
 	} else if (mv === 'true' && mvScrape === 'isaidub') {
 		if (!lang) {
 			return res.status(403).json({
