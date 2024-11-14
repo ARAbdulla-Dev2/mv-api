@@ -65,6 +65,9 @@ server.get('/api', async (req, res) => {
         } else if (lang === 'en') {
             const isaidub = require('./modules/isaidub');
             isaidub.getMovies(searchQuery, res, results);
+        } else if (lang === 'ta'){
+            const isaidubta = require('./modules/isaidubta');
+            isaidubta.getMovies(searchQuery, res, results);
         }
     } else {
         return res.status(403).json({ success: false, message: 'Invalid parameters' });
