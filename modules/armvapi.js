@@ -1,9 +1,11 @@
 const axios = require('axios');
 
+API_KEY = 'dzhdJ6Ty9jTH2D56-H171z83j319dj61d';
+
 // Function to fetch real download URL and file size
 async function getRealDownloadUrl(movieName) {
   try {
-    const response = await axios.get(`https://file9.arabdullah.top/api/request-movie/${encodeURIComponent(movieName)}`);
+    const response = await axios.get(`https://file9.arabdullah.top/api/request-movie/${encodeURIComponent(movieName)}?apiKey=${API_KEY}`);
     const { name, url, expiresIn } = response.data;
     const downloadUrl = `https://file9.arabdullah.top${url}`;
 
@@ -29,7 +31,7 @@ async function getRealDownloadUrl(movieName) {
 // Function to fetch search results from the movie search API
 async function getMovies(searchQuery, res, results = 3) {
   try {
-    const searchResponse = await axios.get(`https://file9.arabdullah.top/api/movies?search=${encodeURIComponent(searchQuery)}`);
+    const searchResponse = await axios.get(`https://file9.arabdullah.top/api/movies?search=${encodeURIComponent(searchQuery)}?apiKey=${API_KEY}`);
     const movies = searchResponse.data;
     
     const movieResults = [];

@@ -3,5 +3,6 @@
 }
 
 .btn{
-   width: 450px;
+    width: 90%;
+    max-width: 450px;
 }
