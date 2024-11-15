@@ -31,7 +31,7 @@ async function getRealDownloadUrl(movieName) {
 // Function to fetch search results from the movie search API
 async function getMovies(searchQuery, res, results = 3) {
   try {
-    const searchResponse = await axios.get(`https://file9.arabdullah.top/api/movies?search=${encodeURIComponent(searchQuery)}?apiKey=${API_KEY}`);
+    const searchResponse = await axios.get(`https://file9.arabdullah.top/api/movies?search=${encodeURIComponent(searchQuery)}&apiKey=${API_KEY}`);
     const movies = searchResponse.data;
     
     const movieResults = [];
