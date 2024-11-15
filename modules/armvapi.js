@@ -36,8 +36,11 @@ async function getMovies(searchQuery, res, results) {
     
     const movieResults = [];
 
+    // Use all results if `results` is undefined or not a valid number
+    const maxResults = results && !isNaN(results) ? Math.min(results, movies.length) : movies.length;
+
     // Iterate over the search results and fetch real download URLs
-    for (let i = 0; i < Math.min(results, movies.length); i++) {
+    for (let i = 0; i < maxResults; i++) {
       const movie = movies[i];
       const realDownload = await getRealDownloadUrl(movie.name);
 
@@ -51,13 +54,10 @@ async function getMovies(searchQuery, res, results) {
       }
     }
 
-    // Limit the number of results returned to the requested number
-    const resultsArray = movieResults.slice(0, results);
-
-    if (resultsArray.length > 0) {
+    if (movieResults.length > 0) {
       res.json({
         success: true,
-        results: resultsArray
+        results: movieResults
       });
     } else {
       res.status(404).json({

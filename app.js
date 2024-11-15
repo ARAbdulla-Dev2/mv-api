@@ -22,7 +22,7 @@ const saveUserData = (data) => {
 };
 
 server.get('/api', async (req, res) => {
-    const { mv, mvScrape, apiKey, query, results, lang } = req.query;
+    const { mv, mvScrape, apiKey, query, results , lang } = req.query;
     const searchQuery = query || null;
 
     const data = loadUserData();
