@@ -3,7 +3,7 @@ const fs = require('fs');
 const axios = require('axios');
 
 const server = express();
-const PORT = 80;
+const PORT = 5000;
 
 server.use(express.static('public'));
 
